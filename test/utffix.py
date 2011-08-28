@@ -25,7 +25,7 @@ wrong = "ÍÎÃÓ ÑÂÅËÎ"
 right = "НОГУ СВЕЛО"
 
 table = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-tableW= ""  #+0350 (848)
+tableW= ""  #+0350 (848)    http://www.tamasoft.co.jp/en/general-info/unicode.html
 
 
 out = open("not-bug.txt", "w")
