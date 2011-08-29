@@ -37,10 +37,17 @@ Usage
     python fix-cp1251.py
 
     - after browser window is opened and your email is shown, enter your password
+    - during processing the script will report progress, where:
+      [\/] - scrolling to start song (when START_SONG > 0)
+      [?] - searching for songs
+      . - song was skipped 
+      + - song was processed
+    - at the end whether "failed after: XXX songs" (not finished processing) 
+      or "done: 5377 songs" (finished) will be shown
 
 4. If the script fails:
     - check error message "failed after: XXX songs"
-    - set new START_SONG value in the fix-cp1251.py
+    - set new START_SONG value in the fix-cp1251.py (use XXX from the error message above)
     - run script again
 
 Notes
