@@ -20,14 +20,17 @@ Usage
     java -jar selenium-server-standalone-2.0b3.jar
 
 2. Configure script - open fix-cp1251.py, set:
-   
+    LOGIN_EMAIL="your_email_here"
+
 3. Run script:
     python fix-cp1251.py
 
+    - after browser window is opened and your email is shown, enter your password
+
 4. If the script fails:
-    check error message "failed after: XXX songs"
-    set new START_SONG value in the fix-cp1251.py
-    run script again
+    - check error message "failed after: XXX songs"
+    - set new START_SONG value in the fix-cp1251.py
+    - run script again
 
 Notes
 1. Tested on selenium 2.0b3 version only, most probably will not work on newer
