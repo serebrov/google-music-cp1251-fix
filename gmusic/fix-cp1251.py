@@ -24,8 +24,8 @@ LOGIN_EMAIL = "seb.goo@gmail.com"
 LOGIN_PASSWORD = "xxx"
 WAIT_TIME=3
 
-START_SONG = 2900
-#START_SONG = 0
+#START_SONG = 3900
+START_SONG = 0
 
 SCROLL_STEP = 10
 SEARCH_STEP = 200
@@ -149,6 +149,7 @@ try:
             sys.stdout.write("[?]")
             songs = driver.find_elements_by_class_name("songRow")
         num = i
+        sys.stdout.flush()
 
     time.sleep(WAIT_TIME)
     print('done: ' + str(num) + ' songs')
