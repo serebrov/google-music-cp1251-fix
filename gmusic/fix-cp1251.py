@@ -17,7 +17,7 @@ LOGIN_EMAIL = "seb.goo@gmail.com"
 LOGIN_PASSWORD = "xxx"
 WAIT_TIME=3
 
-START_SONG = 2900
+START_SONG = 3360
 
 def fix_encoding(text):
     ln = u'';
