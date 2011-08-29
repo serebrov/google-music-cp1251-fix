@@ -17,7 +17,7 @@ LOGIN_EMAIL = "seb.goo@gmail.com"
 LOGIN_PASSWORD = "xxx"
 WAIT_TIME=3
 
-START_SONG = 3146
+START_SONG = 2900
 
 def fix_encoding(text):
     ln = u'';
@@ -38,30 +38,8 @@ def has_wrong_chars(text):
             return True
     return False
 
-def get_raw_value(driver, id):
-    e = driver.find_element_by_id(id)
-
-    url = SELENIUM_SERVER + '/session/'+driver.session_id + '/element/' + e.id + '/value'
-    data = '{"sessionId": "'+driver.session_id +'", "id": "'+e.id+'"}'
-    method = 'GET'
-    request = Request(url, data=data, method=method)
-    request.add_header('Accept', 'application/json')
-    opener = urllib2.build_opener(urllib2.HTTPRedirectHandler(),
-                                          HttpErrorHandler())
-    response = opener.open(request)
-    try:
-        body = response.read().replace('\x00', '').strip()
-        st = body.index('"value":"') + 9
-        end = body.index('","class"')
-        return body[st:end]
-    finally:
-        response.close()
-
 def process_field(driver, id):
     value = driver.find_element_by_id(id).value.encode('cp1251')
-    #even so the value is not the same as in text file test
-    #try driver.get_page_source()
-    #value = get_raw_value(driver, id)
     valueLen = len(value)
 
     fixed = fix_encoding(value).decode('utf-8')
@@ -89,7 +67,6 @@ def open_menu(driver, idx):
         bt = menu.getElementsByClassName('goog-flat-button')[0];
         bt.dispatchEvent(clickEvent);
     """
-    #song.find_element_by_class_name("fade-out-with-menu").click()
     driver.execute_script(menu_script)
     driver.find_element_by_id(":c").click()
 
@@ -122,8 +99,17 @@ try:
     time.sleep(WAIT_TIME*4)
     driver.switch_to_default_content()
 
+    if (START_SONG > 0):
+        dt = 0
+        while (dt < START_SONG):
+            dt = dt + 200
+            scroll_script = "document.getElementById('main').scrollTop=23*"+str(dt)
+            driver.execute_script(scroll_script)
+            time.sleep(WAIT_TIME/2)
+        scroll_script = "document.getElementById('main').scrollTop=23*"+str(START_SONG)
+        driver.execute_script(scroll_script)
+        time.sleep(WAIT_TIME/2)
     songs = driver.find_elements_by_class_name("songRow")
-    songs[0].find_element_by_class_name('variable-width-name-col').click()
     for i in range(START_SONG, len(songs)-1):
         text = songs[i].text
         if (has_wrong_chars(text)):
@@ -132,10 +118,9 @@ try:
             time.sleep(WAIT_TIME/2)
         else:
             sys.stdout.write(".")
-        if (i==0 or i == len(songs)-2 or i % 500 == 0):
-            #force scroll
-            open_menu(driver, i)
-            driver.find_element_by_class_name('cancel-button-text').click()
+        if ((i-START_SONG) % 10 == 0):
+            scroll_script = "document.getElementById('main').scrollTop+=230"
+            driver.execute_script(scroll_script)
             songs = driver.find_elements_by_class_name("songRow")
         num = i
 
