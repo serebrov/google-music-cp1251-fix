@@ -38,3 +38,4 @@ Notes
 2. In Windows works with Google Chrome browser, in Ubuntu - with Firefox
 3. Works more stable in Ubuntu (I had selenium hangs in Windows more often, so 
    you may need to run script many times in Windows, see p.4 above)
+4. Firefox can show warning that script is not responding. Allow it continue.
