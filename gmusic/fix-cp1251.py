@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import platform
 import sys
 import time
 from selenium import selenium
@@ -12,12 +13,28 @@ import urlparse
 import json
 
 SELENIUM_SERVER = "http://127.0.0.1:4444/wd/hub"
+
+if (platform.system() == 'Windows'):
+    BROWSER=webdriver.DesiredCapabilities.CHROME
+else:
+    BROWSER=webdriver.DesiredCapabilities.FIREFOX
+
 GOOGLE_MUSIC_URL = "http://music.google.com/"
 LOGIN_EMAIL = "seb.goo@gmail.com"
 LOGIN_PASSWORD = "xxx"
 WAIT_TIME=3
 
-START_SONG = 3360
+#START_SONG = 3900
+START_SONG = 0
+
+SCROLL_STEP = 10
+SEARCH_STEP = 200
+
+def prepare_text(text):
+    if (platform.system() == 'Windows'):
+        return text.encode('cp1251')
+    else:
+        return text.encode('utf-8')
 
 def fix_encoding(text):
     ln = u'';
@@ -29,7 +46,7 @@ def fix_encoding(text):
 
 def has_wrong_chars(text):
     try:
-        text = text.encode('cp1251')
+        text = prepare_text(text)
         tt = text.decode('utf-8')
     except:
         return False
@@ -39,8 +56,8 @@ def has_wrong_chars(text):
     return False
 
 def process_field(driver, id):
-    value = driver.find_element_by_id(id).value.encode('cp1251')
-    valueLen = len(value)
+    value = prepare_text(driver.find_element_by_id(id).value)
+    valueLen = len(driver.find_element_by_id(id).value)
 
     fixed = fix_encoding(value).decode('utf-8')
     fixed = fixed.replace('"','\\"')
@@ -55,23 +72,28 @@ def process_field(driver, id):
     if (valueLen != len(driver.find_element_by_id(id).value)):
         raise Exception("Possible fix error - value length changed")
 
-def open_menu(driver, idx):
+def open_menu(driver, idx,  song):
     menu_script = """
+        function sendEvent(elem, name) {
+            var event = document.createEvent("MouseEvents");
+            event.initMouseEvent(name,true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            elem.dispatchEvent(event);
+        }
+
         var row = document.getElementsByClassName('songRow')[+"""+str(idx)+"""];
         var menu = row.getElementsByClassName('fade-out-with-menu')[0];
-        var overEvent = document.createEvent("MouseEvents");
-        overEvent.initMouseEvent("mouseover",true, true);
-        var clickEvent = document.createEvent("MouseEvents");
-        clickEvent.initMouseEvent("click",true, true);
-        menu.dispatchEvent(overEvent);
+        sendEvent(menu,'mouseover');
         bt = menu.getElementsByClassName('goog-flat-button')[0];
-        bt.dispatchEvent(clickEvent);
+        sendEvent(bt, 'click');
+        editItem = document.getElementById(":c")
+        sendEvent(editItem,'mousedown')
+        sendEvent(editItem,'mouseup')
     """
     driver.execute_script(menu_script)
-    driver.find_element_by_id(":c").click()
+    #driver.find_element_by_id(":c").click()
 
-def process_song(driver, idx):
-    open_menu(driver, idx)
+def process_song(driver, idx,  song):
+    open_menu(driver, idx,  song)
     process_field(driver, "edit-name")
     process_field(driver, "edit-song-artist")
     process_field(driver, "edit-album-artist")
@@ -79,8 +101,7 @@ def process_song(driver, idx):
     process_field(driver, "edit-composer")
     driver.find_element_by_class_name("modal-dialog-buttons").find_element_by_tag_name("button").click()
 
-driver = webdriver.Remote(SELENIUM_SERVER,webdriver.DesiredCapabilities.CHROME)
-print "start"
+driver = webdriver.Remote(SELENIUM_SERVER,BROWSER)
 num = 0
 try:
     driver.get(GOOGLE_MUSIC_URL)
@@ -100,29 +121,35 @@ try:
     driver.switch_to_default_content()
 
     if (START_SONG > 0):
+        sys.stdout.write("[\/]")
         dt = 0
         while (dt < START_SONG):
-            dt = dt + 200
+            dt = dt + SEARCH_STEP
             scroll_script = "document.getElementById('main').scrollTop=23*"+str(dt)
             driver.execute_script(scroll_script)
             time.sleep(WAIT_TIME/2)
         scroll_script = "document.getElementById('main').scrollTop=23*"+str(START_SONG)
         driver.execute_script(scroll_script)
         time.sleep(WAIT_TIME/2)
+    sys.stdout.write("[?]")
     songs = driver.find_elements_by_class_name("songRow")
     for i in range(START_SONG, len(songs)-1):
         text = songs[i].text
         if (has_wrong_chars(text)):
-            process_song(driver, i)
+            process_song(driver, i,  songs[i])
             sys.stdout.write("+")
             time.sleep(WAIT_TIME/2)
         else:
             sys.stdout.write(".")
-        if ((i-START_SONG) % 10 == 0):
+        if ((i-START_SONG) % SCROLL_STEP == 0):
             scroll_script = "document.getElementById('main').scrollTop+=230"
             driver.execute_script(scroll_script)
+        if ((i-START_SONG) % SEARCH_STEP == 0):
+            #re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
+            sys.stdout.write("[?]")
             songs = driver.find_elements_by_class_name("songRow")
         num = i
+        sys.stdout.flush()
 
     time.sleep(WAIT_TIME)
     print('done: ' + str(num) + ' songs')
