@@ -1,3 +1,37 @@
 Install
+1. Python 2.7 - http://www.python.org/download/
+
+2. Python setup tools:
+        http://pypi.python.org/packages/source/d/distribute/distribute-0.6.15.tar.gz
+    After extraction to a local dir do from command line: 
+        python setup.py install
+
+3. Install selenium python package:
+        http://pypi.python.org/packages/source/s/selenium/selenium-2.0b3.tar.gz
+
+    After extraction to a local dir do from command line: 
+        python setup.py install
+
+4. Download the Selenium Remote control server:
+    http://selenium.googlecode.com/files/selenium-server-standalone-2.0b3.jar
 
 Usage
+1. Run the selenium server, do from command line
+    java -jar selenium-server-standalone-2.0b3.jar
+
+2. Configure script - open fix-cp1251.py, set:
+   
+3. Run script:
+    python fix-cp1251.py
+
+4. If the script fails:
+    check error message "failed after: XXX songs"
+    set new START_SONG value in the fix-cp1251.py
+    run script again
+
+Notes
+1. Tested on selenium 2.0b3 version only, most probably will not work on newer
+   versions since selenium interface changed.
+2. In Windows works with Google Chrome browser, in Ubuntu - with Firefox
+3. Works more stable in Ubuntu (I had selenium hangs in Windows more often, so 
+   you may need to run script many times in Windows, see p.4 above)
