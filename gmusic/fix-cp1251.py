@@ -80,17 +80,17 @@ def open_menu(driver, idx,  song):
             elem.dispatchEvent(event);
         }
 
-        var row = document.getElementsByClassName('songRow')[+"""+str(idx)+"""];
+        var row = document.getElementsByClassName('songRow')["""+str(idx)+"""];
         var menu = row.getElementsByClassName('fade-out-with-menu')[0];
         sendEvent(menu,'mouseover');
         bt = menu.getElementsByClassName('goog-flat-button')[0];
         sendEvent(bt, 'click');
-        editItem = document.getElementById(":c")
-        sendEvent(editItem,'mousedown')
-        sendEvent(editItem,'mouseup')
+        editItem = document.getElementById(":d")
+        sendEvent(editItem,'mousedown');
+        sendEvent(editItem,'mouseup');
     """
     driver.execute_script(menu_script)
-    #driver.find_element_by_id(":c").click()
+    #driver.find_element_by_id(":d").click()
 
 def process_song(driver, idx,  song):
     open_menu(driver, idx,  song)
