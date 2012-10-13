@@ -4,6 +4,7 @@ var process_all = true;
 var scroll_step = 10;
 var search_step = 200;
 var wait_time = 1000;
+var log_changes = true;
 
 function fix_encoding(text) {
     var result = '';
@@ -13,6 +14,9 @@ function fix_encoding(text) {
         result += String.fromCharCode(code + 0x350);
       } else {
         result = result + String.fromCharCode(code);
+      }
+      if (log_changes && text !== result) {
+        console.log(text + ' -> ' + result);
       }
     }
     return result;
