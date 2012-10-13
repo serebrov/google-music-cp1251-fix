@@ -1,6 +1,6 @@
 //START_SONG = 3900
 var start_song = 0;
-var process_all = false;
+var process_all = true;
 var scroll_step = 10;
 var search_step = 200;
 
@@ -18,7 +18,7 @@ function fix_encoding(text) {
 }
 
 function has_wrong_chars(text) {
-  for (var i = 0; i < text; i++) {
+  for (var i = 0; i < text.length; i++) {
     var code = text.charCodeAt(i);
     if (code >= 0xC0 && code <= 0xFF) {
       return true;
