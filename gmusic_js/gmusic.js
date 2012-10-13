@@ -69,7 +69,6 @@ function process_song(idx, song) {
 
 function process() {
   console.log('start');
-  var num = 0;
   if (process_all) {
     $('li[data-type="all"]').click();
   }
@@ -97,8 +96,8 @@ function process() {
     if ((i-start_song) % search_step == 0) {
       //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
       songs = $('.songRow');
+      i = 0;
     }
-    var num = i;
   }
   //sleep(wait_time);
   console.log('finish');
