@@ -8,8 +8,22 @@ Description
     Script uses selenium to do the job. To run it you need to install Python, Selenium 
     and selenium python client library (see Install section below).
 
+Usage:
+* New version is implemented in js
+* To run it you need to inject fix script and dependencies into the google music page
+* I used [Personalized Web](https://chrome.google.com/extensions/detail/plcnnpdmhobdfbponjpedobekiogmbco) extension:
+  * Set URL `^https://play.google.com/music/`
+  * Add a new rule, insert into HTML field:
 
-Install
+    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/jquery-1.8.2.js"></script>
+    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/json2.js"></script>
+    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/underscore.js"></script>
+    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/backbone.js"></script>
+    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/gmusic.js"></script>
+
+* Open google music and find the `FIX ENCODING` button, click it to start a process.
+
+[OLD VERSION] Install
 1. Python 2.7 - http://www.python.org/download/
 
 2. Python setup tools:
@@ -23,17 +37,11 @@ Install
     After extraction to a local dir do from command line: 
         python setup.py install
 
-4. Download the Selenium Remote control server:
-    http://selenium.googlecode.com/files/selenium-server-standalone-2.0b3.jar
-
 Usage
-1. Run the selenium server, do from command line
-    java -jar selenium-server-standalone-2.0b3.jar
-
-2. Configure script - open fix-cp1251.py, set:
+1. Configure script - open fix-cp1251.py, set:
     LOGIN_EMAIL="your_email_here"
 
-3. Run script:
+2. Run script:
     python fix-cp1251.py
 
     - after browser window is opened and your email is shown, enter your password
@@ -45,15 +53,13 @@ Usage
     - at the end whether "failed after: XXX songs" (not finished processing) 
       or "done: 5377 songs" (finished) will be shown
 
-4. If the script fails:
+3. If the script fails:
     - check error message "failed after: XXX songs"
     - set new START_SONG value in the fix-cp1251.py (use XXX from the error message above)
     - run script again
 
 Notes
-1. Tested on selenium 2.0b3 version only, most probably will not work on newer
-   versions since selenium interface changed.
-2. In Windows works with Google Chrome browser, in Ubuntu - with Firefox
-3. Works more stable in Ubuntu (I had selenium hangs in Windows more often, so 
+1. In Windows works with Google Chrome browser, in Ubuntu - with Firefox
+2. Works more stable in Ubuntu (I had selenium hangs in Windows more often, so 
    you may need to run script many times in Windows, see p.4 above)
-4. Firefox can show warning that script is not responding. Allow it continue.
+3. Firefox can show warning that script is not responding. Allow it continue.
