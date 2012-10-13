@@ -68,6 +68,7 @@ function process_song(idx, song) {
 }
 
 function process() {
+  console.log('start');
   var num = 0;
   if (process_all) {
     $('li[data-type="all"]').click();
@@ -87,6 +88,7 @@ function process() {
     var text = $(songs[i]).text();
     if (has_wrong_chars(text)) {
       process_song(i, songs[i]);
+      console.log('.');
       //time.sleep(self.wait_time/2)
     }
     if ((i-start_song) % scroll_step == 0) {
@@ -99,4 +101,5 @@ function process() {
     var num = i;
   }
   //sleep(wait_time);
+  console.log('finish');
 }
