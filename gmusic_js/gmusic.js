@@ -67,6 +67,36 @@ function process_song(idx, song) {
   $('.modal-dialog-buttons').find('button[name="save"]').click();
 }
 
+function process_songs(i) {
+  var timeout = 100;
+  var songs = $('.songRow');
+  //for (var i = start_song; i < songs.length; i++) {
+  var text = $(songs[i]).text();
+  if (has_wrong_chars(text)) {
+    process_song(i, songs[i]);
+    console.log('.');
+    //time.sleep(self.wait_time/2)
+    timeout = wait_time;
+  }
+  if ((i-start_song) % scroll_step == 0) {
+    document.getElementById('main').scrollTop+=230;
+    timeout = wait_time;
+  }
+  if ((i-start_song) % search_step == 0) {
+    //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
+    songs = $('.songRow');
+  }
+  if (i == songs.length) {
+    console.log('finish');
+    return;
+  } else {
+    setTimeout(function() {
+      process_songs(i+1);
+    }, timeout);
+  }
+  //}
+}
+
 function process() {
   console.log('start');
   if (process_all) {
@@ -82,23 +112,23 @@ function process() {
     document.getElementById('main').scrollTop=23*start_song;
     //sleep(wait_time/2);
   }
-  songs = $('.songRow');
-  for (var i = start_song; i < songs.length; i++) {
-    var text = $(songs[i]).text();
-    if (has_wrong_chars(text)) {
-      process_song(i, songs[i]);
-      console.log('.');
-      //time.sleep(self.wait_time/2)
-    }
-    if ((i-start_song) % scroll_step == 0) {
-      document.getElementById('main').scrollTop+=230;
-    }
-    if ((i-start_song) % search_step == 0) {
-      //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
-      songs = $('.songRow');
-      i = 0;
-    }
-  }
+  process_songs(0);
+  //songs = $('.songRow');
+  //for (var i = start_song; i < songs.length; i++) {
+    //var text = $(songs[i]).text();
+    //if (has_wrong_chars(text)) {
+      //process_song(i, songs[i]);
+      //console.log('.');
+      ////time.sleep(self.wait_time/2)
+    //}
+    //if ((i-start_song) % scroll_step == 0) {
+      //document.getElementById('main').scrollTop+=230;
+    //}
+    //if ((i-start_song) % search_step == 0) {
+      ////re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
+      //songs = $('.songRow');
+    //}
+  //}
   //sleep(wait_time);
-  console.log('finish');
+  //console.log('finish');
 }
