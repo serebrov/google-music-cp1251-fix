@@ -69,7 +69,7 @@ function process_song(idx, song) {
 }
 
 function process_songs(i) {
-  var timeout = 100;
+  var timeout = 20;
   var songs = $('.songRow');
   //for (var i = start_song; i < songs.length; i++) {
   var text = $(songs[i]).text();
