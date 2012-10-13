@@ -81,7 +81,7 @@ function process_songs(i) {
   }
   if ((i-start_song) % scroll_step == 0) {
     document.getElementById('main').scrollTop+=230;
-    timeout = wait_time;
+    //timeout = wait_time;
   }
   if ((i-start_song) % search_step == 0) {
     //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
