@@ -3,6 +3,7 @@ var start_song = 0;
 var process_all = true;
 var scroll_step = 10;
 var search_step = 200;
+var wait_time = 1000;
 
 function fix_encoding(text) {
     var result = '';
