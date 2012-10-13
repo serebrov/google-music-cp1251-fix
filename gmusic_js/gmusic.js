@@ -15,9 +15,9 @@ function fix_encoding(text) {
       } else {
         result = result + String.fromCharCode(code);
       }
-      if (log_changes && text !== result) {
-        console.log(text + ' -> ' + result);
-      }
+    }
+    if (log_changes && text !== result) {
+      console.log(text + ' -> ' + result);
     }
     return result;
 }
