@@ -70,7 +70,6 @@ function process_song(idx, song) {
 
 function scroll_to_offset(offset, callback) {
   document.getElementById('main').scrollTop = 23*offset;
-  setTimeout(callback, wait_time);
 }
 
 function scroll_to_start(callback) {
@@ -85,6 +84,8 @@ function scroll_to_start(callback) {
         return callback();
       }
     }, wait_time);
+  } else {
+    return callback();
   }
 }
 
