@@ -3,6 +3,7 @@ var start_song = 0;
 var process_all = true;
 var scroll_step = 10;
 var search_step = 200;
+var wait_time = 1000;
 
 function fix_encoding(text) {
     var result = '';
@@ -67,39 +68,56 @@ function process_song(idx, song) {
   $('.modal-dialog-buttons').find('button[name="save"]').click();
 }
 
+function scroll_to_offset(offset, callback) {
+  document.getElementById('main').scrollTop = 23*offset;
+  setTimeout(callback, wait_time);
+}
+
+function scroll_to_start(callback) {
+  if (start_song > 0) {
+    var dt = 0;
+    var interval = setInterval(function() {
+      dt = dt + search_step;
+      scroll_to_offset(dt);
+      if (dt >= start_song) {
+        scroll_to_offset(start_song);
+        clearInterval(interval);
+        return callback();
+      }
+    }, wait_time);
+  }
+}
+
 function process() {
   console.log('start');
-  var num = 0;
   if (process_all) {
     $('li[data-type="all"]').click();
   }
-  if (start_song > 0) {
-    var dt = 0;
-    while (dt < start_song) {
-      dt = dt + search_step;
-      document.getElementById('main').scrollTop=23*dt;
-      //sleep(wait_time/2);
-    }
-    document.getElementById('main').scrollTop=23*start_song;
-    //sleep(wait_time/2);
-  }
-  songs = $('.songRow');
-  for (var i = start_song; i < songs.length; i++) {
-    var text = $(songs[i]).text();
-    if (has_wrong_chars(text)) {
-      process_song(i, songs[i]);
-      console.log('.');
-      //time.sleep(self.wait_time/2)
-    }
-    if ((i-start_song) % scroll_step == 0) {
-      document.getElementById('main').scrollTop+=230;
-    }
-    if ((i-start_song) % search_step == 0) {
-      //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
-      songs = $('.songRow');
-    }
-    var num = i;
-  }
+  scroll_to_start(function() {
+    songs = $('.songRow');
+    var i = start_song;
+    var interval = setInterval(function() {
+    //for (var i = start_song; i < songs.length; i++) {
+      var text = $(songs[i]).text();
+      if (has_wrong_chars(text)) {
+        process_song(i, songs[i]);
+        console.log('.');
+        //time.sleep(self.wait_time/2)
+      }
+      if ((i-start_song) % scroll_step == 0) {
+        document.getElementById('main').scrollTop+=230;
+      }
+      if ((i-start_song) % search_step == 0) {
+        //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
+        songs = $('.songRow');
+      }
+      i++;
+      if (i == songs.length) {
+        clearInterval(interval);
+        console.log('finish');
+        return;
+      }
+    }, wait_time);
+  });
   //sleep(wait_time);
-  console.log('finish');
 }
