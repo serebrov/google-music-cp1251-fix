@@ -117,7 +117,7 @@ function process() {
   process_songs(0);
 }
 
-$.ready(function() {
+jQuery(function() {
   $('<a><span class="nav-option">FIX ENCODING</span></a>')
     .prependTo($('<li>')
     .prependTo($('.menu-bar')))
