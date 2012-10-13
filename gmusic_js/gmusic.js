@@ -3,7 +3,7 @@ var start_song = 0;
 var process_all = true;
 var scroll_step = 10;
 var search_step = 200;
-var wait_time = 1000;
+var wait_time = 100;
 var log_changes = true;
 
 function fix_encoding(text) {
@@ -73,7 +73,7 @@ function process_song(idx, song) {
 }
 
 function process_songs(i) {
-  var timeout = 20;
+  var timeout = 5;
   var songs = $('.songRow');
   //for (var i = start_song; i < songs.length; i++) {
   var text = $(songs[i]).text();
