@@ -99,7 +99,6 @@ function process_songs(i) {
       process_songs(i+1);
     }, timeout);
   }
-  //}
 }
 
 function process() {
@@ -112,28 +111,17 @@ function process() {
     while (dt < start_song) {
       dt = dt + search_step;
       document.getElementById('main').scrollTop=23*dt;
-      //sleep(wait_time/2);
     }
     document.getElementById('main').scrollTop=23*start_song;
-    //sleep(wait_time/2);
   }
   process_songs(0);
-  //songs = $('.songRow');
-  //for (var i = start_song; i < songs.length; i++) {
-    //var text = $(songs[i]).text();
-    //if (has_wrong_chars(text)) {
-      //process_song(i, songs[i]);
-      //console.log('.');
-      ////time.sleep(self.wait_time/2)
-    //}
-    //if ((i-start_song) % scroll_step == 0) {
-      //document.getElementById('main').scrollTop+=230;
-    //}
-    //if ((i-start_song) % search_step == 0) {
-      ////re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
-      //songs = $('.songRow');
-    //}
-  //}
-  //sleep(wait_time);
-  //console.log('finish');
 }
+
+$.ready(function() {
+  $('<a><span class="nav-option">FIX ENCODING</span></a>')
+    .prependTo($('<li>')
+    .prependTo($('.menu-bar')))
+    .on("click", function() {
+      process();
+    });
+});
