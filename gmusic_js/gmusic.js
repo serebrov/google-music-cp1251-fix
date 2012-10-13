@@ -28,7 +28,7 @@ function has_wrong_chars(text) {
 }
 
 function process_field(id) {
-  value = prepare_text(document.getElementById(id).value);
+  value = document.getElementById(id).value;
   valueLen = value.length;
 
   fixed = fix_encoding(value);
@@ -51,7 +51,7 @@ function open_menu(idx, song) {
     sendEvent(menu,'mouseover');
     bt = menu.getElementsByClassName('goog-flat-button')[0];
     sendEvent(bt, 'click');
-    editItem = document.getElementById(":d")
+    editItem = document.getElementById(":w")
     sendEvent(editItem,'mousedown');
     sendEvent(editItem,'mouseup');
 }
@@ -63,13 +63,14 @@ function process_song(idx, song) {
   process_field("edit-album-artist");
   process_field("edit-album");
   process_field("edit-composer");
-  $('.modal-dialog-buttons').find('button').click();
+  process_field("edit-genres");
+  $('.modal-dialog-buttons').find('button[name="save"]').click();
 }
 
 function process() {
   var num = 0;
   if (process_all) {
-    $('#all').click()
+    $('li[data-type="all"]').click();
   }
   if (start_song > 0) {
     var dt = 0;
