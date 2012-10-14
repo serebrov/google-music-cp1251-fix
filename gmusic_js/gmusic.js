@@ -82,13 +82,15 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
     var pos = $(songs[i]).position().top;
     var c = $(songs[i]).css('color');
     $(songs[i]).css('color', 'red');
-    if (pos) {
+    if ($(songs[i]).is(':visible')) {
       //$('#main').scrollTop(pos);
       songs[i].scrollIntoView();
     } else {
-      console.log('Empty offset');
-      songs[i].scrollIntoView();
+      console.log('Not visible song');
+      var visibleCount = $('.songRow:visble').length;
+      i = visibleCount - 1;
       $(songs[i]).parent().parent().get(0).scrollIntoView();
+      songs[i].scrollIntoView();
       //$('#main').scrollTop($('#main').scrollTop() + 1000);
       songs = $('.songRow');
       timeout = 2000;
