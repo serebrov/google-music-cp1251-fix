@@ -110,7 +110,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       timeout = wait_time;
     }
     if (i+2 == songs.length) {
-      $('#main').scrollTop($('#main').scrollTop() + 200);
+      //$('#main').scrollTop($('#main').scrollTop() + 200);
       songs = $('.songRow');
       timeout = 4000;
     }
