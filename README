@@ -23,6 +23,13 @@ Usage:
 
 * Open google music and find the `FIX ENCODING` button, click it to start a process.
 
+  var head = document.getElementsByTagName('head').item(0);
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.setAttribute('src', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/require.js');
+  script.setAttribute('data-main', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/gmusic.js');
+  head.appendChild(script);
+
 [OLD VERSION] Install
 1. Python 2.7 - http://www.python.org/download/
 
