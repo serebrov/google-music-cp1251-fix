@@ -5,10 +5,8 @@ Description
 
     Probably this script can be modified to fix other encodings too, but this is not tested.
 
-    Script uses selenium to do the job. To run it you need to install Python, Selenium 
-    and selenium python client library (see Install section below).
-
 Usage:
+
 * New version is implemented in js
 * To run it you need to inject fix script and dependencies into the google music page
 * Open google music page 
@@ -24,6 +22,10 @@ Usage:
 * Find the `FIX ENCODING` button, click it to start a process.
 
 [OLD VERSION] Install
+
+    Script uses selenium to do the job. To run it you need to install Python, Selenium 
+    and selenium python client library (see Install section below).
+
 1. Python 2.7 - http://www.python.org/download/
 
 2. Python setup tools:

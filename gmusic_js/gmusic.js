@@ -1,9 +1,4 @@
 requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, Backbone) {
-    //This function is called when scripts/helper/util.js is loaded.
-    //If util.js calls define(), then this function is not fired until
-    //util's dependencies have loaded, and the util argument will hold
-    //the module value for "helper/util".
-  //START_SONG = 3900
   var start_song = 0;
   var process_all = true;
   var scroll_step = 10;
@@ -52,28 +47,32 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
   }
 
   function open_menu(song) {
-      function sendEvent(elem, name) {
-          var event = document.createEvent("MouseEvents");
-          event.initMouseEvent(name,true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          elem.dispatchEvent(event);
-      }
-      var menu = song.find('.fade-out-with-menu')[0];
-      sendEvent(menu,'mouseover');
-      bt = menu.getElementsByClassName('goog-flat-button')[0];
-      sendEvent(bt, 'click');
-      editItem = document.getElementById(":w")
-      sendEvent(editItem,'mousedown');
-      sendEvent(editItem,'mouseup');
+    function sendEvent(elem, name) {
+      var event = document.createEvent("MouseEvents");
+      event.initMouseEvent(name,true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      elem.dispatchEvent(event);
+    }
+    var menu = song.find('.fade-out-with-menu')[0];
+    sendEvent(menu,'mouseover');
+    bt = menu.getElementsByClassName('goog-flat-button')[0];
+    sendEvent(bt, 'click');
+    editItem = document.getElementById(":w")
+    sendEvent(editItem,'mousedown');
+    sendEvent(editItem,'mouseup');
   }
 
   function process_song(song) {
     open_menu(song);
-    process_field("edit-name");
-    process_field("edit-song-artist");
-    process_field("edit-album-artist");
-    process_field("edit-album");
-    process_field("edit-composer");
-    process_field("edit-genres");
+    _.each(['edit-name', 'edit-song-artist', 'edit-album-artist',
+        'edit-album', 'edit-composer', 'edit-genres'], function(f) {
+      process_field(f)
+    });
+    //process_field("edit-name");
+    //process_field("edit-song-artist");
+    //process_field("edit-album-artist");
+    //process_field("edit-album");
+    //process_field("edit-composer");
+    //process_field("edit-genres");
     $('.modal-dialog-buttons').find('button[name="save"]').click();
   }
 
