@@ -88,9 +88,10 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       songs[i].scrollIntoView();
     } else {
       console.log('Empty offset');
-      //$('#main').scrollTop($('#main').scrollTop() + 1000);
-      //songs = $('.songRow');
-      //timeout = 2000;
+      $(songs[i]).parent().parent().get(0).scrollIntoView();
+      $('#main').scrollTop($('#main').scrollTop() + 1000);
+      songs = $('.songRow');
+      timeout = 2000;
     }
     var text = $(songs[i]).text();
     if (has_wrong_chars(text)) {
