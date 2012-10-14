@@ -88,20 +88,20 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
     } else {
       console.log('Not visible song');
       //var visibleCount = $('.songRow:visible').length;
-      j = i;
-      while(!$(songs[i]).is(':visible')) {
-        i--;
-        if (!$(songs[j]).is(':visible')) {
-          j++;
-        } else {
-          i = j;
-        }
-      }
+      //j = i;
+      //while(!$(songs[i]).is(':visible')) {
+        //i--;
+        //if (!$(songs[j]).is(':visible')) {
+          //j++;
+        //} else {
+          //i = j;
+        //}
+      //}
       $(songs[i]).parent().parent().get(0).scrollIntoView();
       songs[i].scrollIntoView();
-      //$('#main').scrollTop($('#main').scrollTop() + 1000);
+      $('#main').scrollTop($('#main').scrollTop() + 1000);
       songs = $('.songRow');
-      timeout = 2000;
+      timeout = 4000;
     }
     var text = $(songs[i]).text();
     if (has_wrong_chars(text)) {
@@ -112,7 +112,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
     if (i+2 == songs.length) {
       $('#main').scrollTop($('#main').scrollTop() + 1000);
       songs = $('.songRow');
-      timeout = 2000;
+      timeout = 4000;
     }
     if (i+1 == songs.length) {
       $(songs[i]).css('color', c);
