@@ -81,6 +81,7 @@ function process_songs(i) {
     document.getElementById('main').scrollTop = offset - 200;
   } else {
     console.log('Empty offset');
+    timeout = 2000;
   }
   if (has_wrong_chars(text)) {
     process_song(songs[i]);
