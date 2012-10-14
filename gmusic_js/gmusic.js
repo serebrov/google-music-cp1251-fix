@@ -76,8 +76,12 @@ function process_songs(i) {
   var songs = $('.songRow');
   //for (var i = start_song; i < songs.length; i++) {
   var text = $(songs[i]).text();
-  var offset = s.offset().top;
-  document.getElementById('main').scrollTop = offset - 200;
+  var offset = $(songs[i]).offset().top;
+  if (offset) {
+    document.getElementById('main').scrollTop = offset - 200;
+  } else {
+    console.log('Empty offset');
+  }
   if (has_wrong_chars(text)) {
     process_song(songs[i]);
     console.log('.');
