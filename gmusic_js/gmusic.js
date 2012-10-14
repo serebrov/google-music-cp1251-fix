@@ -1,4 +1,25 @@
-requirejs(["jquery", "underscore", "backbone", "json2"], function($, _, Backbone, JSON) {
+require.config({
+  //paths:{
+    //jquery:'libs/jquery/jquery',
+    //underscore:'libs/underscore/underscore',
+    //backbone:'libs/backbone/backbone'
+  //},
+  shim:{
+    underscore:{
+      deps:[],
+      exports:'_'
+    },
+
+    backbone:{
+      deps:['underscore','jquery'],
+      exports:function(){
+        return Backbone.noConflict();
+      }
+    }
+  }
+});
+
+require(["jquery", "underscore", "backbone", "json2"], function($, _, Backbone, JSON) {
   var start_song = 0;
   var process_all = true;
   var scroll_step = 10;
