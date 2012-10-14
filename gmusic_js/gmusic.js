@@ -77,11 +77,11 @@ function process_songs(i) {
   //for (var i = start_song; i < songs.length; i++) {
   var pos = $(songs[i]).position().top;
   if (pos) {
-    $('#main').scrollTop(pos);
+    //$('#main').scrollTop(pos);
+    songs[i].scrollIntoView();
   } else {
     console.log('Empty offset');
     $('#main').scrollTop($('#main').scrollTop() + 100);
-    songs = $('.songRow');
     timeout = 2000;
   }
   var text = $(songs[i]).text();
@@ -91,8 +91,13 @@ function process_songs(i) {
     timeout = wait_time;
   }
   if (i == songs.length) {
-    console.log('finish');
-    return;
+    $('#main').scrollTop($('#main').scrollTop() + 100);
+    songs = $('.songRow');
+    timeout = 2000;
+    if (i == songs.length) {
+      console.log('finish');
+      return;
+    }
   } else {
     setTimeout(function() {
       process_songs(i+1);
