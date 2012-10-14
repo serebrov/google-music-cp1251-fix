@@ -76,6 +76,8 @@ function process_songs(i) {
   var timeout = 5;
   //for (var i = start_song; i < songs.length; i++) {
   var pos = $(songs[i]).position().top;
+  var c = $(songs[i]).css('color');
+  $(songs[i]).css('color', 'red');
   if (pos) {
     //$('#main').scrollTop(pos);
     songs[i].scrollIntoView();
@@ -90,16 +92,18 @@ function process_songs(i) {
     console.log('.');
     timeout = wait_time;
   }
-  if (i == songs.length) {
+  if (i+1 == songs.length) {
     $('#main').scrollTop($('#main').scrollTop() + 100);
     songs = $('.songRow');
     timeout = 2000;
-    if (i == songs.length) {
+    if (i+1 == songs.length) {
+      $(songs[i]).css('color', c);
       console.log('finish');
       return;
     }
   } else {
     setTimeout(function() {
+      $(songs[i]).css('color', c);
       process_songs(i+1);
     }, timeout);
   }
