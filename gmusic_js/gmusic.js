@@ -81,6 +81,7 @@ function process_songs(i) {
   } else {
     console.log('Empty offset');
     $('#main').scrollTop($('#main').scrollTop() + 100);
+    songs = $('.songRow');
     timeout = 2000;
   }
   var text = $(songs[i]).text();
