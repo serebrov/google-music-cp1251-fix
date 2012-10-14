@@ -45,14 +45,13 @@ function process_field(id) {
   }
 }
 
-function open_menu(idx, song) {
+function open_menu(song) {
     function sendEvent(elem, name) {
         var event = document.createEvent("MouseEvents");
         event.initMouseEvent(name,true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
         elem.dispatchEvent(event);
     }
-    var row = document.getElementsByClassName('songRow')[idx];
-    var menu = row.getElementsByClassName('fade-out-with-menu')[0];
+    var menu = song.find('.fade-out-with-menu')[0];
     sendEvent(menu,'mouseover');
     bt = menu.getElementsByClassName('goog-flat-button')[0];
     sendEvent(bt, 'click');
@@ -61,8 +60,8 @@ function open_menu(idx, song) {
     sendEvent(editItem,'mouseup');
 }
 
-function process_song(idx, song) {
-  open_menu(idx, song);
+function process_song(song) {
+  open_menu(song);
   process_field("edit-name");
   process_field("edit-song-artist");
   process_field("edit-album-artist");
@@ -78,19 +77,19 @@ function process_songs(i) {
   //for (var i = start_song; i < songs.length; i++) {
   var text = $(songs[i]).text();
   if (has_wrong_chars(text)) {
-    process_song(i, songs[i]);
+    process_song(songs[i]);
     console.log('.');
     //time.sleep(self.wait_time/2)
     timeout = wait_time;
   }
-  if ((i-start_song) % scroll_step == 0) {
-    document.getElementById('main').scrollTop+=230;
-    //timeout = wait_time;
-  }
-  if ((i-start_song) % search_step == 0) {
-    //re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
-    songs = $('.songRow');
-  }
+  //if ((i-start_song) % scroll_step == 0) {
+    //document.getElementById('main').scrollTop+=230;
+    ////timeout = wait_time;
+  //}
+  //if ((i-start_song) % search_step == 0) {
+    ////re-search songs every SEARCH_STEP (default 200) steps - new songs can be AJAX-loaded
+    //songs = $('.songRow');
+  //}
   if (i == songs.length) {
     console.log('finish');
     return;
@@ -106,14 +105,14 @@ function process() {
   if (process_all) {
     $('li[data-type="all"]').click();
   }
-  if (start_song > 0) {
-    var dt = 0;
-    while (dt < start_song) {
-      dt = dt + search_step;
-      document.getElementById('main').scrollTop=23*dt;
-    }
-    document.getElementById('main').scrollTop=23*start_song;
-  }
+  //if (start_song > 0) {
+    //var dt = 0;
+    //while (dt < start_song) {
+      //dt = dt + search_step;
+      //document.getElementById('main').scrollTop=23*dt;
+    //}
+    //document.getElementById('main').scrollTop=23*start_song;
+  //}
   process_songs(0);
 }
 
