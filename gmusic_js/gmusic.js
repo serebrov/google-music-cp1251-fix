@@ -99,7 +99,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       //}
       $(songs[i]).parent().parent().get(0).scrollIntoView();
       songs[i].scrollIntoView();
-      $('#main').scrollTop($('#main').scrollTop() + 1000);
+      $('#main').scrollTop($('#main').scrollTop() + 200);
       songs = $('.songRow');
       timeout = 4000;
     }
@@ -110,7 +110,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       timeout = wait_time;
     }
     if (i+2 == songs.length) {
-      $('#main').scrollTop($('#main').scrollTop() + 1000);
+      $('#main').scrollTop($('#main').scrollTop() + 200);
       songs = $('.songRow');
       timeout = 4000;
     }
