@@ -88,9 +88,9 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       songs[i].scrollIntoView();
     } else {
       console.log('Empty offset');
-      $('#main').scrollTop($('#main').scrollTop() + 100);
-      songs = $('.songRow');
-      timeout = 2000;
+      //$('#main').scrollTop($('#main').scrollTop() + 1000);
+      //songs = $('.songRow');
+      //timeout = 2000;
     }
     var text = $(songs[i]).text();
     if (has_wrong_chars(text)) {
@@ -99,7 +99,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       timeout = wait_time;
     }
     if (i+2 == songs.length) {
-      $('#main').scrollTop($('#main').scrollTop() + 100);
+      $('#main').scrollTop($('#main').scrollTop() + 1000);
       songs = $('.songRow');
       timeout = 2000;
     }
