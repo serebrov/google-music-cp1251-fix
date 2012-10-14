@@ -8,14 +8,14 @@ require.config({
     underscore:{
       deps:[],
       exports:'_'
-    },
+    }//,
 
-    backbone:{
-      deps:['underscore','jquery'],
-      exports:function(){
-        return Backbone.noConflict();
-      }
-    }
+    //backbone:{
+      //deps:['underscore','jquery'],
+      //exports:function(){
+        //return Backbone.noConflict();
+      //}
+    //}
   }
 });
 
