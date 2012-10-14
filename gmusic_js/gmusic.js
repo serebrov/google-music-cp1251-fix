@@ -122,6 +122,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       $('li[data-type="all"]').click();
     }
     songs = $('.songRow');
+    _.isString("moe");
     process_songs(start_song);
   }
 

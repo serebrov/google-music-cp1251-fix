@@ -19,6 +19,10 @@ Usage:
     script.setAttribute('data-main', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/gmusic.js');
     head.appendChild(script);
 
+* Script can be embedded permanently using browser extension like Personalized Web for Chrome:
+ * Add a new rule
+ * Set URL to ^https://play.google.com/music/
+ * Insert Javascript block shown above
 * Find the `FIX ENCODING` button, click it to start a process.
 
 [OLD VERSION] Install
