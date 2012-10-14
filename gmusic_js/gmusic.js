@@ -1,4 +1,4 @@
-requirejs(["jquery", "underscore", "backbone", "json2"], function($, _, Backbone, JSON) {
+requirejs(["jQuery", "Underscore", "Backbone", "json2"], function($, _, Backbone, JSON) {
   var start_song = 0;
   var process_all = true;
   var scroll_step = 10;
