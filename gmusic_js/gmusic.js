@@ -87,16 +87,6 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       songs[i].scrollIntoView();
     } else {
       console.log('Not visible song');
-      //var visibleCount = $('.songRow:visible').length;
-      //j = i;
-      //while(!$(songs[i]).is(':visible')) {
-        //i--;
-        //if (!$(songs[j]).is(':visible')) {
-          //j++;
-        //} else {
-          //i = j;
-        //}
-      //}
       $(songs[i]).parent().parent().get(0).scrollIntoView();
       songs[i].scrollIntoView();
       $('#main').scrollTop($('#main').scrollTop() + 200);
@@ -105,7 +95,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
     }
     var text = $(songs[i]).text();
     if (has_wrong_chars(text)) {
-      process_song(songs[i]);
+      process_song($(songs[i]));
       console.log('.');
       timeout = wait_time;
     }
