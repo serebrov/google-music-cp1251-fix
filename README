@@ -11,24 +11,17 @@ Description
 Usage:
 * New version is implemented in js
 * To run it you need to inject fix script and dependencies into the google music page
-* I used [Personalized Web](https://chrome.google.com/extensions/detail/plcnnpdmhobdfbponjpedobekiogmbco) extension:
-  * Set URL `^https://play.google.com/music/`
-  * Add a new rule, insert into HTML field:
+* Open google music page 
+* Open javascript console and insert following code:
 
-    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/jquery-1.8.2.js"></script>
-    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/json2.js"></script>
-    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/underscore.js"></script>
-    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/backbone.js"></script>
-    <script src="https://github.com/sebgoo/google-music-cp1251-fix/raw/master/gmusic_js/gmusic.js"></script>
+    var head = document.getElementsByTagName('head').item(0);
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/require.js');
+    script.setAttribute('data-main', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/gmusic.js');
+    head.appendChild(script);
 
-* Open google music and find the `FIX ENCODING` button, click it to start a process.
-
-  var head = document.getElementsByTagName('head').item(0);
-  var script = document.createElement('script');
-  script.setAttribute('type', 'text/javascript');
-  script.setAttribute('src', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/require.js');
-  script.setAttribute('data-main', 'https://raw.github.com/sebgoo/google-music-cp1251-fix/master/gmusic_js/gmusic.js');
-  head.appendChild(script);
+* Find the `FIX ENCODING` button, click it to start a process.
 
 [OLD VERSION] Install
 1. Python 2.7 - http://www.python.org/download/
