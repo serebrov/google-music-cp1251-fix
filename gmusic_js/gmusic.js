@@ -88,8 +88,14 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
     } else {
       console.log('Not visible song');
       //var visibleCount = $('.songRow:visible').length;
+      j = i;
       while(!$(songs[i]).is(':visible')) {
         i--;
+        if (!$(songs[j]).is(':visible')) {
+          j++;
+        } else {
+          i = j;
+        }
       }
       $(songs[i]).parent().parent().get(0).scrollIntoView();
       songs[i].scrollIntoView();
