@@ -87,7 +87,7 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       songs[i].scrollIntoView();
     } else {
       console.log('Not visible song');
-      var visibleCount = $('.songRow:visble').length;
+      var visibleCount = $('.songRow:visible').length;
       i = visibleCount - 1;
       $(songs[i]).parent().parent().get(0).scrollIntoView();
       songs[i].scrollIntoView();
