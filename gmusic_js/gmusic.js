@@ -88,8 +88,9 @@ requirejs(["jquery", "json2", "underscore", "backbone"], function($, json2, _, B
       songs[i].scrollIntoView();
     } else {
       console.log('Empty offset');
+      songs[i].scrollIntoView();
       $(songs[i]).parent().parent().get(0).scrollIntoView();
-      $('#main').scrollTop($('#main').scrollTop() + 1000);
+      //$('#main').scrollTop($('#main').scrollTop() + 1000);
       songs = $('.songRow');
       timeout = 2000;
     }
