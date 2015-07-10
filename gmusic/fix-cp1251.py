@@ -35,7 +35,7 @@ class GMusicFix(object):
             self.driver = webdriver.Firefox()
 
         self.google_music_url = "http://music.google.com/"
-        self.login = "seb.goo@gmail.com"
+        self.login = "your.mail@gmail.com"
         self.password = "xxx"
         self.wait_time = 3
 
